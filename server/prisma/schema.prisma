@@ -11,14 +11,28 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique // @unique => Postgres rejects duplicate emails
+  id           Int        @id @default(autoincrement())
+  email        String     @unique // @unique => Postgres rejects duplicate emails
   passwordHash String // bcrypt hash. We NEVER store the plain password.
-  createdAt    DateTime @default(now())
+  createdAt    DateTime   @default(now())
+  favorites    Favorite[]
 }
 
 model Quote {
-  id     Int    @id @default(autoincrement())
-  text   String
-  author String
+  id        Int        @id @default(autoincrement())
+  text      String
+  author    String
+  favorites Favorite[]
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  quoteId   Int
+  createdAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quote Quote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, quoteId])
 }

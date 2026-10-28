@@ -21,6 +21,7 @@ app.get("/health", (req, res) => res.json({ ok: true }));
 app.use("/auth", require("./routes/auth"));
 app.use("/me", require("./routes/me"));
 app.use("/quotes", require("./routes/quotes"));
+app.use("/favorites", require("./routes/favorites"));
 
 // Unknown route -> JSON 404 (instead of Express's default HTML page)
 app.use((req, res) => res.status(404).json({ error: "Not found." }));
