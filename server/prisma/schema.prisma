@@ -1,0 +1,24 @@
+// Prisma schema: describes our tables. `prisma migrate dev` turns changes here
+// into SQL migration files (see prisma/migrations).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique // @unique => Postgres rejects duplicate emails
+  passwordHash String // bcrypt hash. We NEVER store the plain password.
+  createdAt    DateTime @default(now())
+}
+
+model Quote {
+  id     Int    @id @default(autoincrement())
+  text   String
+  author String
+}
