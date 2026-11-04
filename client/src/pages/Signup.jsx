@@ -4,7 +4,7 @@ import AuthForm from "../components/AuthForm.jsx";
 
 
 export default function Signup() {
-const {user, loading, signUp} = useAuth();
+const {user, loading, signup} = useAuth();
 
 if(loading) return null;
 if(user) return <Navigate to="/" replace />;
@@ -14,7 +14,7 @@ if(user) return <Navigate to="/" replace />;
     <AuthForm
         title="Sign Up"
         submitLabel={"Sign up"}
-        onSubmit={signUp}
+        onSubmit={signup}
         footer={
         <>
             Already have an account? <Link to="/login">Log In</Link> to login.
